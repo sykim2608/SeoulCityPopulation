@@ -1,18 +1,18 @@
 package com.example.SeoulSiPeoples.model;
 
 /**
- * API 요청 URL 인자
+ * 인구 조회 상세 요청 모델
  * @Author sykim@ntels.com
  */
 public class ParamModel {
     /**
      * 데이터 조회 기간
      */
-    private String dates = "";
+    public static String dates = "2010.1-4";
     /**
      * 조회할 자치구 명
      */
-    private String jachigu = "";
+    public static String jachigu = "";
 
     public String getDates() {
         return dates;
@@ -30,4 +30,8 @@ public class ParamModel {
         this.jachigu = jachigu;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

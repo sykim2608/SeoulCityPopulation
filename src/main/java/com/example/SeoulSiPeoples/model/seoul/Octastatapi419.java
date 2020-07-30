@@ -3,7 +3,7 @@ package com.example.SeoulSiPeoples.model.seoul;
 import java.util.List;
 
 /**
- * API 요청에 대한 octastatapi419 모델
+ * API Response Body 내 octastatapi419 정보
  * @author sykim@ntels.com
  */
 public class Octastatapi419 {

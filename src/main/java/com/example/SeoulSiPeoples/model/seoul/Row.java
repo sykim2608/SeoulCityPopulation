@@ -1,7 +1,7 @@
 package com.example.SeoulSiPeoples.model.seoul;
 
 /**
- * API 요청에 대한 서울시 인구 정보 리스트 모델
+ * API Response Body 내 서울시 인구 정보 리스트
  * @author sykim@ntels.com
  */
 public class Row {

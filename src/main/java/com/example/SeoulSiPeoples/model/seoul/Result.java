@@ -1,7 +1,7 @@
 package com.example.SeoulSiPeoples.model.seoul;
 
 /**
- * API 요청에 대한 응답 코드 및 메시지 모델
+ * API Response Body 내 응답 코드 및 메시지
  * @author sykim@ntels.com
  */
 public class Result {

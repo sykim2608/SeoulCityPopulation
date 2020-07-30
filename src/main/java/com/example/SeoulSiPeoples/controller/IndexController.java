@@ -1,6 +1,5 @@
 package com.example.SeoulSiPeoples.controller;
 
-import com.example.SeoulSiPeoples.model.ParamModel;
 import com.example.SeoulSiPeoples.model.seoul.Row;
 import com.example.SeoulSiPeoples.service.PopulationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +23,19 @@ public class IndexController {
     PopulationServiceImpl populationServiceImpl;
 
     /**
+     * 서울시 모든 자치구 리스트
+     */
+    public static List<Row> allList;
+
+    /**
      * 기본 페이지 출력
-     * @return "population_read.jsp" 반환
+     * @return "population_read.jsp"
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String populations(Model model) {
-
-        ParamModel paramModel = new ParamModel();
-        List<Row> ResultList = populationServiceImpl.requestPopulation(paramModel);
-        model.addAttribute("rowLists", ResultList);
-
-        System.out.println(ResultList);
-
+        allList = populationServiceImpl.requestPopulation();
+        model.addAttribute("seoulList", allList);
+        model.addAttribute("resultList",allList);
         return "population_read";
     }
-
 }

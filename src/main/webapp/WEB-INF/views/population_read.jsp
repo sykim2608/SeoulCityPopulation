@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,14 +21,14 @@
     function searchClick() {
       var year = $("#selectYear option:selected").val();
       var quater = $("#selectQuarter option:selected").val();
-      var dataFormat = {dates : year + "." + quater};
+      //var dataFormat = {dates : encodeURI(year + "." + quater)};
       $.ajax({
         type: "GET",
         contentType: "application/json",
-        data: JSON.stringify(dataFormat),
-        url: "/findDate",
-        success: function() {
-          alert("success");
+      //  data: JSON.stringify(dataFormat),
+        url: "/findDate?dates=" + year + "." + quater,
+        success: function(data) {
+          location.reload();
         },
         error: function() {
           alert("error");
@@ -37,10 +36,8 @@
       });
 
     }
-
   </script>
 </head>
-
 <body>
   <div class="header"></div>
   <div class="wrap">
@@ -100,8 +97,9 @@
               <div class="loading hide"><span></span></div>
               <div class="search_message hide">검색하신 내용이 없습니다.<br>Package와 Node를 선택해 주십시오.</div>
               <ul class="side_menu">  
-                <c:forEach items="${rowLists}" var="item" varStatus="status">
-                  <li <c:if test="${status.index eq 0}">class="active"</c:if>><a href="select?val=${item.JACHIGU}">${item.JACHIGU}</a></li>
+                <c:set var="current" value="${resultList}"/>
+                <c:forEach items="${seoulList}" var="item" varStatus="status" >
+                  <li <c:if test="${item.JACHIGU eq param.select}">class="active"</c:if>><a href="findJachigu?select=${item.JACHIGU}">${item.JACHIGU}</a></li>
                 </c:forEach>
               </ul>
             </div>
@@ -168,16 +166,16 @@
                       <td style="vertical-align: middle;" >
                         <span class="label" ><center><b>세대 수</b></center></span>
                       </td>
-                      <td colspan="3">
-                        <center>${rowLists[0].SEDAE}</center>
+                      <td colspan="3" id="sedae_1">
+                        <center>${resultList[0].SEDAE}</center>
                       </td>
                     </tr>
                     <tr>
                       <td rowspan="9" style="vertical-align: middle;" >
-                        <span class="label" ><center><b>인구</b></center></span>
+                        <span class="label"><center><b>인구</b></center></span>
                       </td>
                       <th colspan="3">
-                        <span class="label" ><center><b>합계</b></center></span>
+                        <span class="label"><center><b>합계</b></center></span>
                       </th>
                     </tr>
                     <tr>
@@ -187,13 +185,13 @@
                     </tr>
                     <tr>
                       <td>
-                        <center>${rowLists[0].GYE_1}</center>
+                        <center>${resultList[0].GYE_1}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].NAMJA_1}</center>
+                        <center>${resultList[0].NAMJA_1}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].YEOJA_1}</center>
+                        <center>${resultList[0].YEOJA_1}</center>
                       </td>
                     </tr>
                     <tr>
@@ -208,13 +206,13 @@
                     </tr>
                      <tr>
                       <td>
-                        <center>${rowLists[0].GYE_2}</center>
+                        <center>${resultList[0].GYE_2}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].NAMJA_2}</center>
+                        <center>${resultList[0].NAMJA_2}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].YEOJA_2}</center>
+                        <center>${resultList[0].YEOJA_2}</center>
                       </td>
                     </tr>
                     <tr>
@@ -229,13 +227,13 @@
                     </tr>
                     <tr>
                       <td>
-                        <center>${rowLists[0].GYE_3}</center>
+                        <center>${resultList[0].GYE_3}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].NAMJA_3}</center>
+                        <center>${resultList[0].NAMJA_3}</center>
                       </td>
                       <td>
-                        <center>${rowLists[0].YEOJA_3}</center>
+                        <center>${resultList[0].YEOJA_3}</center>
                       </td>
                     </tr>
                      <tr>
@@ -243,7 +241,7 @@
                         <span class="label" ><center><b>세대 당 인구</b></center></span>
                       </td>
                       <td colspan="3">
-                        <center>${rowLists[0].SEDAEDANGINGU}</center>
+                        <center>${resultList[0].SEDAEDANGINGU}</center>
                       </td>
                     </tr>
                     <tr>
@@ -251,7 +249,7 @@
                         <span class="label" ><center><b>65세 이상 고령자</b></center></span>
                       </td>
                       <td colspan="3">
-
+                        <center>${resultList[0].n_65SEISANGGORYEONGJA}</center>
                       </td>
                     </tr> 
                   </tbody>
